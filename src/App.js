@@ -1,12 +1,19 @@
-
-import Header from './components/header/header';
+import {BrowserRouter,Routes,Route} from 'react-router-dom';
+import Header from './components/header/Header';
+import Home from './components/home/Home';
+import Cart from './components/cart/Cart';
 
 
 function App() {
   return (
-    <div>
+    <BrowserRouter>
       <Header />
-    </div>
+      <Routes>      
+      <Route path='/' element={<Home/>} />
+      <Route path='/cart' element={<Cart/>} />
+      </Routes>
+      
+    </BrowserRouter>
   );
 }
 
