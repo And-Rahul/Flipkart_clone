@@ -1,10 +1,10 @@
 import {Box, makeStyles} from '@material-ui/core';
 import Banner from "./Banner";
 import Navbar from "./Navbar";
-import Slide from './slide.js';
+import Slide from './slide.jsx';
 import MidSection from './MidSection';
 
-import { products } from  '../../constants/data.js'
+//import { products } from  '../../constants/data.js'
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import  { getProducts as listProducts} from  '../../redux/actions/productActions';
