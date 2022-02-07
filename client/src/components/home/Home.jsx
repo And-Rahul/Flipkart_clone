@@ -4,6 +4,11 @@ import Navbar from "./Navbar";
 import Slide from './slide.js';
 import MidSection from './MidSection';
 
+import { products } from  '../../constants/data.js'
+import { useSelector, useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import  { getProducts as listProducts} from  '../../redux/actions/productActions';
+
 const useStyle = makeStyles({
     component: {
         padding: 10,
@@ -20,6 +25,13 @@ const useStyle = makeStyles({
 const Home = () => {
     const classes =useStyle();
     const adURL = 'https://rukminim1.flixcart.com/flap/464/708/image/633789f7def60050.jpg?q=70';
+    
+    const { products }= useSelector(state => state.getProducts)
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(listProducts())
+    }, [dispatch])
+
     return (
     <div>
         <Navbar/>
@@ -30,6 +42,7 @@ const Home = () => {
                     <Slide
                         timer={true}
                         title="Deal of the day"
+                        products={products}
                     />
                 </Box>
                 <Box className={classes.rightWrapper}>
@@ -40,14 +53,17 @@ const Home = () => {
             <Slide
                         timer={false}
                         title="Suggested items"
+                        products={products}
             />
             <Slide
                         timer={false}
                         title="Best Sellers"
+                        products={products}
             />
             <Slide
                         timer={false}
                         title="Discounts for you"
+                        products={products}
             />
         </Box>
         
