@@ -1,14 +1,17 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Box, makeStyles, Typography } from '@material-ui/core';
+import { Box, Button, makeStyles, Typography } from '@material-ui/core';
 import { removeFromCart } from '../../redux/actions/cartActions';
 
 import CartItem from './CartItem';
+import EmptyCart from './EmptyCart';
+import TotalView from './TotalView';
 
 const useStyle = makeStyles({
     component: {
         marginTop: 55,
-        padding: '30px 135px'
+        padding: '30px 135px',
+        display:'flex'        
     },
     leftComponent: {
         width: '67%'
@@ -16,6 +19,21 @@ const useStyle = makeStyles({
     header: {
         padding: '15px 24px',
         background: '#fff'
+    },
+    placeorder:{
+        backgroundColor:'#fb641b',
+        color:'#fff',
+        borderRadius:2,
+        width:250,
+        height:50,
+        display:'flex',
+        marginLeft:'auto'
+    },
+    bottom:{
+        padding:'16px 22px',
+        background:'#fff',
+        borderTop:'1px solid #f0f0f0',
+        boxShadow:'0 -2px 10px 0 rgb(0 0 0 / 10%)'
     }
 })
 
@@ -46,14 +64,17 @@ const Cart = () => {
                                 <CartItem item={item} removeItemFromCart={removeItemFromCart}/>
                             ))
                         }
+                        <Box className={classes.bottom}>
+                            <Button className={classes.placeorder} variant="contained">Place Order</Button>
+                        </Box>
                     </Box>
-                    <Box className = {classes.rightComponent}>
-
-                    </Box>
-                    <p>Hello Value</p>
+                    <TotalView cartItems={cartItems}/>
+                            
+                   
+                    
                 </Box>
 
-                : <p>Empty</p>
+                : <EmptyCart/>
             }
         </>
     )
