@@ -5,6 +5,8 @@ import FlashOnIcon from '@mui/icons-material/FlashOn';
 import { addToCart} from '../../redux/actions/cartActions';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { payUsingPaytm } from "../../service/api";
+import {post} from '../../utils/paytm'
 
 const useStyle = makeStyles({
     leftContainer:{
@@ -42,11 +44,20 @@ const ActionItems = ({product}) =>{
         navigate('/cart')
     } 
 
+    const buyNow = async()=>{
+       let response= await payUsingPaytm({amount:500,email:'ganesh220801@gmail.com'});
+       let information = {
+           action:'https://securegw-stage.paytm.in/order/process',
+           params:response
+       }
+            post(information);
+    }
+
     return(
         <Box className={classes.leftContainer}>
             <img src={product.detailUrl} className={classes.image} /> <br/>
             <Button onClick={() => addItemToCart()} variant="contained" className={clsx(classes.button,classes.addTocart)}><ShoppingCartIcon/> Add to Cart</Button>
-            <Button variant="contained" className={clsx(classes.button,classes.buyNow)}><FlashOnIcon/>Buy Now</Button>
+            <Button onClick={()=>buyNow()} variant="contained" className={clsx(classes.button,classes.buyNow)}><FlashOnIcon/>Buy Now</Button>
         </Box>
     )
 }
