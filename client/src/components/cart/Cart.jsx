@@ -2,6 +2,8 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Box, Button, makeStyles, Typography } from '@material-ui/core';
 import { removeFromCart } from '../../redux/actions/cartActions';
+import { payUsingPaytm } from '../../service/api';
+import { post } from '../../utils/paytm';
 
 import CartItem from './CartItem';
 import EmptyCart from './EmptyCart';
@@ -50,6 +52,15 @@ const Cart = () => {
         dispatch(removeFromCart(id));
     }
 
+    const buyNow = async()=>{
+        let response= await payUsingPaytm({amount:500,email:'ganesh220801@gmail.com'});
+        let information = {
+            action:'https://securegw-stage.paytm.in/order/process',
+            params:response
+        }
+             post(information);
+     }
+
     return (
         <>
             {
@@ -65,7 +76,7 @@ const Cart = () => {
                             ))
                         }
                         <Box className={classes.bottom}>
-                            <Button className={classes.placeorder} variant="contained">Place Order</Button>
+                            <Button onClick={()=>buyNow()} className={classes.placeorder} variant="contained">Place Order</Button>
                         </Box>
                     </Box>
                     <TotalView cartItems={cartItems}/>
