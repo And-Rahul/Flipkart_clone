@@ -44,7 +44,7 @@ const ActionItems = ({product}) =>{
 
     return(
         <Box className={classes.leftContainer}>
-            <img src={product.detailUrl} className={classes.image} />
+            <img src={product.detailUrl} className={classes.image} /> <br/>
             <Button onClick={() => addItemToCart()} variant="contained" className={clsx(classes.button,classes.addTocart)}><ShoppingCartIcon/> Add to Cart</Button>
             <Button variant="contained" className={clsx(classes.button,classes.buyNow)}><FlashOnIcon/>Buy Now</Button>
         </Box>

@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import LoginDialog from '../login/Login';
 import {LoginContext} from '../../context/ContextProvider';
 import Profile from './Profile';
+import { useSelector } from 'react-redux';
 
 const useStyle = makeStyles(theme => ({
     container: {
@@ -54,6 +55,7 @@ const HeaderButtons =()=>{
     const classes = useStyle();
     const [open,setOpen] = useState(false);
     const {account,setAccount} = useContext(LoginContext);
+    const {cartItems} = useSelector(state=>state.cart);
     const openLoginDialog= ()=>{
         setOpen(true);
     }
@@ -69,7 +71,7 @@ const HeaderButtons =()=>{
             }
             <Typography style={{ marginTop: 2 }}>More</Typography>
             <Link to='/cart' className={classes.container}>
-                <Badge badgeContent={4} color="secondary">
+                <Badge badgeContent={cartItems.length} color="secondary">
                     <ShoppingCart />
                 </Badge>
                 <Typography style={{ marginLeft: 10 }}>Cart</Typography>

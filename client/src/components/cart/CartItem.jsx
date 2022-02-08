@@ -2,6 +2,8 @@
 import { Card, makeStyles, Box , Typography, Button} from '@material-ui/core';
 import { linkClasses } from '@mui/material';
 import clsx from 'clsx'
+
+import GroupButton from './GroupButton';
  
 const useStyle= makeStyles({
     component: {
@@ -10,10 +12,12 @@ const useStyle= makeStyles({
         borderTop: '1px solid #f0f0f0'
     },
     leftComponent: {
-        margin: 20
+        margin: 20,
+        display:'flex',
+        flexDirection:'column'
     },
     rightComponent: {
-        margin: 20
+        marginTop: 20
     },
     smallText: {
         fonstSize: 14
@@ -42,6 +46,7 @@ const CartItem= ({item, removeItemFromCart}) => {
         <Card className={classes.component}>
             <Box className = {classes.leftComponent}>
                 <img src={item.url} className={linkClasses.image}/>
+                <GroupButton/>
             </Box>
             <Box className = {classes.rightComponent}>
                 <Typography>
