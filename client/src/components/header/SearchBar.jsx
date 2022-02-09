@@ -1,5 +1,11 @@
-import { makeStyles, fade, InputBase  } from "@material-ui/core"
+import { makeStyles, fade, InputBase , List, ListItem } from "@material-ui/core"
 import {Search} from '@material-ui/icons'
+import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux'; // hooks
+import { getProducts as listProducts } from '../../redux/actions/productActions';
+import { Link } from 'react-router-dom';
+
+
 const useStyle = makeStyles(theme => ({
     search: {
         borderRadius: 2,
@@ -31,6 +37,23 @@ const useStyle = makeStyles(theme => ({
 }))
 const SearchBar=()=>{
     const classes = useStyle();
+    const [ text, setText ] = useState();
+    const [ open, setOpen ] = useState(true)
+
+    const getText = (text) => {
+        setText(text);
+        setOpen(false)
+    }
+
+    const getProducts = useSelector(state => state.getProducts);
+    const { products } = getProducts;
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(listProducts())
+    }, [dispatch])
+
     return (
         <div className={classes.search}>
             <InputBase
@@ -40,11 +63,29 @@ const SearchBar=()=>{
                 input: classes.inputInput,
               }}
               inputProps={{ 'aria-label': 'search' }}
-            //   onChange={(e) => getText(e.target.value)}
+              onChange={(e) => getText(e.target.value)}
             />
             <div className={classes.searchIcon}>
               <Search />
             </div>
+            {
+             text && 
+             <List className={classes.list} hidden={open}>
+               {
+                 products.filter(product => product.title.longTitle.toLowerCase().includes(text.toLowerCase())).map(product => (
+                   <ListItem>
+                     <Link 
+                       to={`/product/${product.id}`} 
+                       style={{ textDecoration:'none', color:'inherit'}}
+                       onClick={() => setOpen(true)}  
+                     >
+                       {product.title.longTitle}
+                     </Link>
+                   </ListItem>
+                 ))
+               }  
+             </List>
+            }
         </div>
 
     )

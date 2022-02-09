@@ -2,21 +2,24 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { getProductDetails } from "../../redux/actions/productActions";
 import { useParams } from "react-router-dom";
-import { Box,makeStyles, Table, TableBody, TableCell, TableRow, Typography } from "@material-ui/core";
+import {Grid, Box,makeStyles, Table, TableBody, TableCell, TableRow, Typography } from "@material-ui/core";
 import clsx from 'clsx';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import ActionItems from "./ActionItems";
 
 
-const useStyle = makeStyles({
+const useStyle = makeStyles(theme=>({
     component:{
         marginTop:55,
         backgroundColor:'#F2F2F2'
     },
     container:{
-        margin:'0 80px',
+        // margin:'0 80px',
         backgroundColor:'#fff',
-        display:'flex'
+        display:'flex',
+        [theme.breakpoints.down('md')]:{
+            margin:0
+        }
     },
     rightContainer:{
         marginTop:50,
@@ -45,7 +48,7 @@ const useStyle = makeStyles({
         marginRight:10,
         color:'#00CC00'
     }
-})
+}));
 
 const DetailView = ({match})=>{
     const classes = useStyle();
@@ -63,11 +66,11 @@ const DetailView = ({match})=>{
     return (
         <Box className={classes.component}>
         {product && Object.keys(product).length &&
-            <Box className={classes.container}>
-                <Box style={{minWidth:'40%'}}>
+            <Grid container className={classes.container}>
+                <Grid item lg={4} md={4} sm={8} xs={12} >
                    <ActionItems product={product}/>
-                </Box>
-                <Box className={classes.rightContainer}>
+                </Grid>
+                <Grid item lg={8} md={8} sm={8} xs={12} className={classes.rightContainer}>
                 <Typography>{product.title.longTitle}</Typography>
                 <Typography className={clsx(classes.smallText,classes.greyTextColor)}>8 Ratings & 1 Review<span><img src={fassured} style={{width:77,marginLeft:20}}/></span></Typography>
                 <Typography>
@@ -110,8 +113,8 @@ const DetailView = ({match})=>{
                         </TableRow>
                     </TableBody>
                 </Table>
-                </Box>               
-            </Box>
+                </Grid>               
+            </Grid>
         }
         </Box>
     )

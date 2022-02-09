@@ -9,18 +9,39 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import  { getProducts as listProducts} from  '../../redux/actions/productActions';
 
-const useStyle = makeStyles({
+// const useStyle = makeStyles({
+//     component: {
+//         padding: 10,
+//         background: '#F2F2F2'
+//     },
+//     rightWrapper: {
+//         background: '#FFFFFF',
+//         padding: 5,
+//         margin: '12px 0 0 10px',
+//         width: '17%'
+//     }
+// })
+const useStyle = makeStyles(theme => ({
     component: {
-        padding: 10,
-        background: '#F2F2F2'
+        display: 'flex'
     },
-    rightWrapper: {
+    leftComponent: {
+        width: '83%',
+        [theme.breakpoints.down('md')]: {
+            width: '100%'
+        }
+    },
+    rightComponent: {
+        marginTop: 12,
         background: '#FFFFFF',
+        width: '17%',
+        marginLeft: 10,
         padding: 5,
-        margin: '12px 0 0 10px',
-        width: '17%'
+        [theme.breakpoints.down('md')]: {
+            display: 'none'
+        }
     }
-})
+}));
 
 const Home = () => {
     const classes =useStyle();
@@ -35,18 +56,18 @@ const Home = () => {
     return (
     <div>
         <Navbar/>
-        <Box className= {classes.component}>
+        <Box >
             <Banner/>
-            <Box style={{display: 'flex'}}>
-                <Box style={{width: '83%' }}>
+            <Box className= {classes.component}>
+                <Box className={classes.leftComponent}>
                     <Slide
                         timer={true}
                         title="Deal of the day"
                         products={products}
                     />
                 </Box>
-                <Box className={classes.rightWrapper}>
-                    <img src ={adURL} style={{width: 230, height:'auto' }}/>
+                <Box className={classes.rightComponent}>
+                    <img src ={adURL} style={{width: 230 }}/>
                 </Box>
             </Box>
             <MidSection/>

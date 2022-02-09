@@ -3,7 +3,7 @@ import {Box,makeStyles,Typography} from '@material-ui/core';
 import { useEffect, useState } from 'react';
 const useStyle = makeStyles({
     component:{
-        width:'30%',
+        // width:'30%',
         background:'#fff',
         marginLeft:15
     },

@@ -4,7 +4,7 @@ import {createTheme, ThemeProvider} from '@material-ui/core';
 import { CssBaseline } from '@material-ui/core';
 const TemplateContext = createContext(null);
 
-export const TemplateProvider = ({children})=>{
+const TemplateProvider = ({children})=>{
     const theme = createTheme({
         overrides:{
             MuiDialog:{
@@ -38,3 +38,5 @@ export const TemplateProvider = ({children})=>{
 </TemplateContext.Provider>
     )
 }
+
+export default TemplateProvider;

@@ -26,7 +26,7 @@ const responsive = {
   }
 };
 
-const useStyle =makeStyles({
+const useStyle =makeStyles(theme => ({
     component:{
         marginTop: 12,
         background: '#FFFFFF'
@@ -45,7 +45,10 @@ const useStyle =makeStyles({
         color: '#7f7f7f',
         marginLeft: 10,
         display: 'flex',
-        alignItems: 'center'
+        alignItems: 'center',
+        [theme.breakpoints.down('sm')]: {
+                    display: 'none'
+        }
     },
     image: {
         height: 150
@@ -64,7 +67,8 @@ const useStyle =makeStyles({
     wrapper: {
         padding: '35px 15px'
     }
-})
+    
+}));
 
 const Slide = ({timer,title, products}) => {
     const classes = useStyle();
@@ -79,12 +83,12 @@ const Slide = ({timer,title, products}) => {
                 <Typography className={classes.dealText}>{title}</Typography>
                 {
                     timer &&
-                    <>
+                    <Box className={classes.timer}>
                     <img src ={timerURL} style={{width:24}}/>
                     <Countdown date={Date.now() + 5.04e+7} renderer={renderer}/>
-                    <Button varient="contained" color="primary" className={classes.button}>View All</Button>
-                    </>
+                    </Box>
                 }
+                <Button varient="contained" color="primary" className={classes.button}>View All</Button>
                     </Box>
             <Divider/>
         <Carousel
@@ -97,7 +101,7 @@ const Slide = ({timer,title, products}) => {
         autoPlaySpeed={10000}
         keyBoardControl={true}
         showDots={false}
-        removeArrowOnDeviceType={["tablet","mobile"]}
+        // removeArrowOnDeviceType={["tablet","mobile"]}
         dotListClass="custom-dot-list-style"
         itemClass="carousel-item-padding-40-px"
         >

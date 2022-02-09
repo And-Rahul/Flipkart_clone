@@ -69,7 +69,9 @@ const HeaderButtons =()=>{
                      <Button className={classes.login} onClick={()=> openLoginDialog()} variant="contained">Login</Button>
                      </Link>
             }
+            <Link to="#">
             <Typography style={{ marginTop: 2 }}>More</Typography>
+            </Link>
             <Link to='/cart' className={classes.container}>
                 <Badge badgeContent={cartItems.length} color="secondary">
                     <ShoppingCart />
