@@ -45,7 +45,7 @@ const CartItem= ({item, removeItemFromCart}) => {
     return (
         <Card className={classes.component}>
             <Box className = {classes.leftComponent}>
-                <img src={item.url} className={linkClasses.image}/>
+                <img src={item.url} className={classes.image}/>
                 <GroupButton/>
             </Box>
             <Box className = {classes.rightComponent}>
